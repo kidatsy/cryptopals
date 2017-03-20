@@ -17,34 +17,84 @@ const XOR = (input1, input2) => {
 
 // Caesar Cipher, or single-key XOR
 // Takes a repeating single ASCII char and XORs it across the plaintext
+// Accepts inputMain as bin, key as ASCII decimal
 const caesarCipher = (inputMain, key) => {
-  const inputBin = convert.hex.toBin(inputMain);
-  const inputBytes = inputBin / 8;
-  console.log(inputBin.length);
+  const inputBytes = inputMain.length / 8;
 
   let inputKey = '';  
-  for (let i = 0; i < inputMain.length; i++) {
-    inputKey += key;
+  for (let i = 0; i < inputBytes; i++) {
+    inputKey += convert.bin.padToByte(convert.dec.toBin(key));
   }
 
   return XOR(inputMain, inputKey);
 }
 
-const findBestFixedXORKey = (input) => {
-  for (let i = 0; i < convert.constants.base64Set.length; i++) {
-    // For each character, set up test
-    let key = convert.constants.base64Set[i];
-    console.log(caesarCipher(input, key));
-
-    // get XOR
-    // process for english-lang frequency
-    // add to object w/ int as key, frequencies. sort
-    // select the top and ascii-ize key
+const getFrequencies = (input) => {
+  let frequencies = {};
+  for (let i in input) {
+    const char = input[i];
+    if (frequencies[char] == undefined) {
+      frequencies[char] = 1;
+    } else {
+      frequencies[char]++;
+    }
   }
+  return frequencies;
+}
+
+const getEnglishScore = (input) => {
+  // Ditch out if we detect an unprintable ASCII character
+  const unprintables = convert.constants.asciiUnprintables;
+  for (let i = 0; i < unprintables.length; i++) {
+    if (input.indexOf(unprintables[i]) > -1) {
+      return 0;
+    }
+  }
+
+  // Get the frequencies
+  input = input.toLowerCase();
+  const frequencies = getFrequencies(input);
+
+  // Score them. this thing is bunk. make it better
+  let totalScore = 0;
+  const charScore = convert.constants.frequencyScoresEnglish;
+  for (let i in charScore) {
+    if (frequencies[i]) {
+      totalScore += frequencies[i] * charScore[i];
+    }
+  }
+
+  return totalScore;
+};
+
+// Break Caesar Cipher by testing keys against ciphertext
+const breakCaesarCipher = (input) => {
+  let highScore = 0;
+  let key = '';
+  let plaintext = '';
+  for (let i = 0; i < 256; i++) {
+    // For each dec representaton of ASCII char, get caesarCipher against ciphertext
+    const cipherPrime = caesarCipher(input, i);
+    const plainPrime = convert.bin.toAsciiRaw(cipherPrime);
+    // console.log(plainPrime);
+
+    const score = getEnglishScore(plainPrime);
+    // console.log(score);
+    if (score > highScore) {
+      highScore = score;
+      key = convert.dec.toAscii(i);
+      plaintext = plainPrime;
+    }
+  }
+
+  return {
+    key: key,
+    plaintext: plaintext
+  };
 }
 
 export default {
   XOR: XOR,
   caesarCipher: caesarCipher,
-  findBestFixedXORKey: findBestFixedXORKey
+  breakCaesarCipher: breakCaesarCipher
 };

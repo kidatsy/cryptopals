@@ -29,18 +29,22 @@ const s1c2 = () => {
 };
 
 const s1c3 = () => {
-  console.log('Set 1, Challenge 3: Single-byte XOR Cipher');
+  console.log('Set 1, Challenge 3: Single-byte XOR Cipher (Caesar Cipher)');
   console.log('-----------------------');
-  const input = '1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736';
+  let input = '1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736';
   console.log('Input: ' + input);
-  algos.findBestFixedXORKey(input);
+
+  input = convert.hex.toBin(input);
+  const results = algos.breakCaesarCipher(input);
+  console.log('Plaintext: ' + results.plaintext);
+  console.log('Key: ' + results.key);
   console.log('\n');
 };
 
 export default {
   set1: () => {
-    s1c1();
-    s1c2();
+    // s1c1();
+    // s1c2();
     s1c3();
   },
 };

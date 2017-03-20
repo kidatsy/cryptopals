@@ -1,7 +1,7 @@
 import constants from './constants.jsx';
 
 const toBin = (input) => {
-  // sdfasfdasd
+  return parseInt(input, 10).toString(2);
 }
 
 const toHex = (input) => {
@@ -13,7 +13,11 @@ const toBase64 = (input) => {
 }
 
 const toAscii = (input) => {
-  // sdfasfdasd
+  return constants.asciiEncodingsNormalized[input];
+}
+
+const toAsciiRaw = (input) => {
+  return constants.asciiEncodingsRaw[input];
 }
 
 export default {
@@ -21,4 +25,5 @@ export default {
   toHex: toHex,
   toBase64: toBase64,
   toAscii: toAscii,
+  toAsciiRaw: toAsciiRaw,
 };
