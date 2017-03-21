@@ -11,7 +11,7 @@ for (let idx in hexEncodings) {
 const base64Set = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 
 const asciiEncodingsNormalized = {
-    0: "*",   1: "*",   2: "*",   3: "*",   4: "*",   5: "*",   6: "*",   7: "*", 
+    0: "*",   1: "*",   2: "*",   3: "*",   4: "*",   5: "*",   6: "*",   7: "*",
     8: "*",   9: "*",  10: "*",  11: "*",  12: "*",  13: "*",  14: "*",  15: "*",
    16: "*",  17: "*",  18: "*",  19: "*",  20: "*",  21: "*",  22: "*",  23: "*",
    24: "*",  25: "*",  26: "*",  27: "*",  28: "*",  29: "*",  30: "*",  31: "*",
@@ -46,7 +46,7 @@ const asciiEncodingsNormalized = {
 };
 
 const asciiEncodingsRaw = {
-    0: "*NUL*",  1: "*SOH*",  2: "*STX*",  3: "*ETX*",  4: "*EOT*",  5: "*ENQ*",  6: "*ACK*",  7: "*BEL*", 
+    0: "*NUL*",  1: "*SOH*",  2: "*STX*",  3: "*ETX*",  4: "*EOT*",  5: "*ENQ*",  6: "*ACK*",  7: "*BEL*",
     8: "*BS*",   9: "*HT*",  10: "*LF*",  11: "*VT*",  12: "*FF*",  13: "*CR*",  14: "*SO*",  15: "*SI*",
    16: "*DLE*", 17: "*DC1*", 18: "*DC2*", 19: "*DC3*", 20: "*DC4*", 21: "*NAK*", 22: "*SYN*", 23: "*ETB*",
    24: "*CAN*", 25: "*EM*",  26: "*SUB*", 27: "*ESC*", 28: "*FS*",  29: "*GS*",  30: "*RS*",  31: "*US*",
@@ -82,7 +82,13 @@ const asciiEncodingsRaw = {
 
 const asciiUnprintables = ["*NUL*", "*SOH*", "*STX*", "*ETX*", "*EOT*", "*ENQ*", "*ACK*", "*BEL*", "*BS*", "*HT*", "*LF*", "*VT*", "*FF*", "*CR*", "*SO*", "*SI*", "*DLE*", "*DC1*", "*DC2*", "*DC3*", "*DC4*", "*NAK*", "*SYN*", "*ETB*", "*CAN*", "*EM*", "*SUB*", "*ESC*", "*FS*", "*GS*", "*RS*", "*US*", "*DEL*"]
 
-const frequencyScoresEnglish = {e: 26, t: 25, a: 24, o: 23, i: 22, n: 21, s: 20, h: 19, r: 18, d: 17, l: 16, u: 15};
+const frequenciesEnglish = {
+  e: 0.12702, t: 0.09056, a: 0.08167, o: 0.07507, i: 0.06966, n: 0.06749,
+  s: 0.06327, h: 0.06094, r: 0.05987, d: 0.04253, l: 0.04025, c: 0.02782,
+  u: 0.02758, m: 0.02406, w: 0.02360, f: 0.02228, g: 0.02015, y: 0.01974,
+  p: 0.01929, b: 0.01492, v: 0.00978, k: 0.00772, j: 0.00153, x: 0.00150,
+  q: 0.00095, z: 0.00074,
+};
 
 export default {
   hexEncodings: hexEncodings,
@@ -91,5 +97,5 @@ export default {
   asciiEncodingsNormalized: asciiEncodingsNormalized,
   asciiEncodingsRaw: asciiEncodingsRaw,
   asciiUnprintables: asciiUnprintables,
-  frequencyScoresEnglish: frequencyScoresEnglish,
+  frequenciesEnglish: frequenciesEnglish,
 }

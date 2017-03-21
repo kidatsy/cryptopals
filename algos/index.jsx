@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import convert from '../convert';
+import util from './util';
 
 /* ----- XOR ----- */
 
@@ -29,44 +30,6 @@ const caesarCipher = (inputMain, key) => {
   return XOR(inputMain, inputKey);
 }
 
-const getFrequencies = (input) => {
-  let frequencies = {};
-  for (let i in input) {
-    const char = input[i];
-    if (frequencies[char] == undefined) {
-      frequencies[char] = 1;
-    } else {
-      frequencies[char]++;
-    }
-  }
-  return frequencies;
-}
-
-const getEnglishScore = (input) => {
-  // Ditch out if we detect an unprintable ASCII character
-  const unprintables = convert.constants.asciiUnprintables;
-  for (let i = 0; i < unprintables.length; i++) {
-    if (input.indexOf(unprintables[i]) > -1) {
-      return 0;
-    }
-  }
-
-  // Get the frequencies
-  input = input.toLowerCase();
-  const frequencies = getFrequencies(input);
-
-  // Score them. this thing is bunk. make it better
-  let totalScore = 0;
-  const charScore = convert.constants.frequencyScoresEnglish;
-  for (let i in charScore) {
-    if (frequencies[i]) {
-      totalScore += frequencies[i] * charScore[i];
-    }
-  }
-
-  return totalScore;
-};
-
 // Break Caesar Cipher by testing keys against ciphertext
 const breakCaesarCipher = (input) => {
   let highScore = 0;
@@ -76,10 +39,10 @@ const breakCaesarCipher = (input) => {
     // For each dec representaton of ASCII char, get caesarCipher against ciphertext
     const cipherPrime = caesarCipher(input, i);
     const plainPrime = convert.bin.toAsciiRaw(cipherPrime);
-    // console.log(plainPrime);
+    let score = util.getScoreEnglish(plainPrime);
 
-    const score = getEnglishScore(plainPrime);
-    // console.log(score);
+    // Inverting non-zero scores to make comparisons easier
+    score = (!score) ? score : (1 / score);
     if (score > highScore) {
       highScore = score;
       key = convert.dec.toAscii(i);
@@ -89,7 +52,8 @@ const breakCaesarCipher = (input) => {
 
   return {
     key: key,
-    plaintext: plaintext
+    plaintext: plaintext,
+    score: highScore
   };
 }
 
