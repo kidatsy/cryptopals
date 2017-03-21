@@ -5,18 +5,21 @@
   "main": "index.js",
   "scripts": {
     "start": "babel-node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "caesar-cipher": "babel-node commands/caesar-cipher.jsx"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "lodash": "^4.17.4"
+    "babel-cli": "^6.24.0",
+    "babel-core": "^6.24.0",
+    "babel-preset-es2015": "^6.24.0",
+    "chalk": "^1.1.3",
+    "fs": "0.0.0",
+    "lodash": "^4.17.4",
+    "prompt": "^1.0.0"
   },
-  "devDependencies": {
-    "babel-cli": "^6.23.0",
-    "babel-core": "^6.23.1",
-    "babel-preset-es2015": "^6.22.0"
-  },
+  "devDependencies": {},
   "babel": {
     "presets": [
       "es2015"

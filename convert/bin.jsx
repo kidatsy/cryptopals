@@ -1,5 +1,5 @@
-import constants from './constants.jsx';
-import dec from './dec.jsx';
+import constants from '../constants';
+import convertDec from './dec.jsx';
 
 const padToByte = (input) => {
   // pad bin with left-ward zeros
@@ -48,7 +48,7 @@ const toAscii = (input) => {
 
   for (let i = 0; i < inputBytes; i++) {
     const bin = input.substr((i * 8), 8);
-    output += dec.toAscii(toDec(bin));
+    output += convertDec.toAscii(toDec(bin)).toString();
   }
   return output;
 }
@@ -59,7 +59,7 @@ const toAsciiRaw = (input) => {
 
   for (let i = 0; i < inputBytes; i++) {
     const bin = input.substr((i * 8), 8);
-    output += dec.toAsciiRaw(toDec(bin));
+    output += convertDec.toAsciiRaw(toDec(bin));
   }
   return output;
 }

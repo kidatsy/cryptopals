@@ -1,4 +1,4 @@
-import constants from './constants.jsx';
+import constants from '../constants';
 
 const toBin = (input) => {
   // sdfasfdasd

@@ -1,5 +1,6 @@
 import algos from './algos';
 import convert from './convert';
+import util from './util';
 
 const s1c1 = () => {
   console.log('Set 1, Challenge 1: Hex to Base64');
@@ -30,7 +31,7 @@ const s1c2 = () => {
 
 const s1c3 = () => {
   console.log('Set 1, Challenge 3: Single-byte XOR Cipher (Caesar Cipher)');
-  console.log('-----------------------');
+  console.log('----------------------------------------------------------');
   let input = '1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736';
   console.log('Ciphertext: ' + input);
 
@@ -38,13 +39,57 @@ const s1c3 = () => {
   const results = algos.breakCaesarCipher(input);
   console.log('Plaintext: ' + results.plaintext);
   console.log('Key: ' + results.key);
+  console.log('Score: ' + results.score);
+
+  console.log('\n');
+};
+
+const s1c4 = () => {
+  console.log('Set 1, Challenge 4: Detect single-character XOR');
+  console.log('-----------------------------------------------');
+  const inputs = util.getFileLines('./files/s1c4.txt');
+
+  let winner = null;
+  let winnerResults = null;
+  let bestScore = 9999999999;
+  for (let i in inputs) {
+    // console.log('-------------------------');
+    const input = inputs[i];
+    const bin = convert.hex.toBin(input);
+    const results = algos.breakCaesarCipher(bin);
+
+    if (results.score < bestScore) {
+      bestScore = results.score;
+      winner = input;
+      winnerResults = results;
+    }
+  }
+
+  console.log('The winner....?');
+  console.log(winner);
+  console.log(winnerResults);
+};
+
+const s1c5 = () => {
+  console.log('Set 1, Challenge 5: Implement repeating-key XOR (Vigniere Cipher)');
+  console.log('-----------------------------------------------------------------');
+  let input = "Burning 'em, if you ain't quick and nimble I go crazy when I hear a cymbal";
+  console.log('Plaintext: ' + input);
+
+  // const results = algos.vignereCipher(input, 'ICE');
+  // console.log('Plaintext: ' + results.plaintext);
+  // console.log('Key: ' + results.key);
+  // console.log('Score: ' + results.score);
+
   console.log('\n');
 };
 
 export default {
   set1: () => {
-    s1c1();
-    s1c2();
-    s1c3();
+    // s1c1();
+    // s1c2();
+    // s1c3();
+    s1c4();
+    // s1c5();
   },
 };
