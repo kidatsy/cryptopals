@@ -1,3 +1,5 @@
+import Promise from 'bluebird';
+
 class Set {
   constructor(number) {
     this._number = number;
@@ -26,9 +28,9 @@ class Set {
 
   all() {
     this._notifyAll();
-    for (const i in this._challenges) {
-      this.runChallenge(i);
-    }
+    Promise.each(Object.keys(this._challenges), (number) => {
+      this.runChallenge(number);
+    })
   }
 }
 
