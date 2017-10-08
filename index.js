@@ -1,3 +1,4 @@
-import demonstration from './demonstration.jsx';
+import { Set1 } from './sets';
 
-demonstration.set1();
+// Set1.all();
+Set1.runChallenge(1);
