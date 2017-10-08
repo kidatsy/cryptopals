@@ -11,8 +11,7 @@ const C1 = new Challenge({
   input: '49276d206b696c6c696e6720796f757220627261696e206c696b65206120706f69736f6e6f7573206d757368726f6f6d',
   expectedOutput: 'SSdtIGtpbGxpbmcgeW91ciBicmFpbiBsaWtlIGEgcG9pc29ub3VzIG11c2hyb29t'
 }).setProcedure(() => {
-  var output = convert.hex.toBase64(C1.getInput());
-  console.log(output);
+  const output = convert.hex.toBase64(C1.getInput());
   C1.setOutput(output);
 });
 

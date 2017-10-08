@@ -1,4 +1,6 @@
 import Promise from 'bluebird';
+import chalk from 'chalk';
+import { choolk } from '../utilities';
 
 class Challenge {
   constructor(params) {
@@ -42,21 +44,22 @@ class Challenge {
   }
 
   notifyOfRun() {
-    console.log('Running Challenge ' + this.number + '!' + '\n--------------------');
+    console.log(chalk.yellow(chalk.underline('Running Challenge ' + this.number + '!')));
     if (this.description) {
       console.log(this.description);
     }
   }
 
   verify(verbose = true) {
-    console.log('Input: ' + this.input);
+    const result = this.output === this.expectedOutput;
+    console.log('Input: ' + chalk.magenta(this.input));
     if (verbose) {
-      console.log('Verifying that Output: ' + this.output + '\n'
-      + '  === Expected Output: ' + this.expectedOutput);
+      console.log('  => Output: ' + choolk(result, this.output) + '\n'
+      + '  ' + choolk(result, '+', '-') + 'Expected: ' + choolk(result, this.expectedOutput));
     } else {
-      console.log('Verifying that Output === Expected Output');
+      console.log('  => Output ' + choolk(result, (result) ? '===' : '!==') + ' Expected');
     }
-    console.log(this.output === this.expectedOutput);
+    // console.log((result) ? chalk.green(result) : chalk.red(result));
     console.log('');
   }
 }

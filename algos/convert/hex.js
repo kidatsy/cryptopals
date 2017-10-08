@@ -1,15 +1,19 @@
+import _ from 'lodash';
 import bin from './bin';
-
-const toDec = (input) => {
-  return parseInt(input, 16);
-}
+import { hexEncodings } from '../../constants';
 
 const toBin = (input) => {
-  return toDec(input).toString(2);
+  return _.map(input, (digit) => {
+    return hexEncodings[digit];
+  }).join('');
 };
 
+const toDec = (input) => {
+  // TODO
+}
+
 const toBase64 = (input) => {
-  return bin.toBase64(toDec(input));
+  return bin.toBase64(toBin(input));
 }
 
 export default {
