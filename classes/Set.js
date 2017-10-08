@@ -9,11 +9,8 @@ class Set {
   }
 
   notifyAll() {
-    console.log('Running all Challenges!');    
-  }
-
-  notifySingle(number) {
-    console.log('Running Challenge ' + number + '!');    
+    console.log('Running all Challenges for Set ' + this.number + '!'
+      + '\n=================================\n');    
   }
 
   addChallenge(challenge) {
@@ -22,7 +19,6 @@ class Set {
   }
 
   runChallenge(number) {
-    this.notifySingle(number);
     this.challenges[number].run();
   }
 
