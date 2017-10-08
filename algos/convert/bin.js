@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { base64Chars } from '../../constants';
+import { base64Chars, hexDigitFor } from '../../constants';
 import { nSizeChunks } from '../../utilities';
 
 const toDec = (input) => {
@@ -8,8 +8,10 @@ const toDec = (input) => {
 };
 
 const toHex = (input) => {
-  // These will do for now - work on if inputs get huge
-  return parseInt(input, 2).toString(16);
+  const quartets = nSizeChunks(input, 4);
+  return _.map(quartets, (quartet) => {
+    return hexDigitFor[quartet];
+  }).join('');
 };
 
 const toBase64 = (input) => {

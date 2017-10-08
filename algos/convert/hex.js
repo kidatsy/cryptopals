@@ -1,10 +1,10 @@
 import _ from 'lodash';
 import bin from './bin';
-import { hexEncodings } from '../../constants';
+import { hexBitsFor } from '../../constants';
 
 const toBin = (input) => {
   return _.map(input, (digit) => {
-    return hexEncodings[digit];
+    return hexBitsFor[digit];
   }).join('');
 };
 

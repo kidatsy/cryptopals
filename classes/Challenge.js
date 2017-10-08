@@ -3,59 +3,49 @@ import chalk from 'chalk';
 import { choolk } from '../utilities';
 
 class Challenge {
-  constructor(params) {
-    this.number = params.number || null;
-    this.description = params.description || null;
-    this.input = params.input || null;
-    this.expectedOutput = params.expectedOutput || null;
-    this.procedure = params.procedure || function(){};
-    return this;
-  }
-
-  setProcedure(procedure) {
-    this.procedure = () => {
+  constructor(params, procedure) {
+    this._number = params.number || null;
+    this._description = params.description || null;
+    this._input = params.input || null;
+    this._expectedOutput = params.expectedOutput || null;
+    this._procedure = () => {
       return new Promise((resolve, reject) => {
-        procedure();
+        this._output = procedure();
         resolve();
       });
     };
     return this;
   }
 
-  setOutput(output) {
-    this.output = output;
-    return this;
-  }
-
   getNumber() {
-    return this.number;
+    return this._number;
   }
 
   getInput() {
-    return this.input;
+    return this._input;
   }
 
   run() {
-    this.notifyOfRun();
-    this.procedure()
+    this._notifyOfRun();
+    this._procedure()
       .then(() => {
-        this.verify();
+        this._verify();
       });
   }
 
-  notifyOfRun() {
-    console.log(chalk.yellow(chalk.underline('Running Challenge ' + this.number + '!')));
-    if (this.description) {
-      console.log(this.description);
+  _notifyOfRun() {
+    console.log(chalk.yellow(chalk.underline('Running Challenge ' + this._number + '!')));
+    if (this._description) {
+      console.log(this._description);
     }
   }
 
-  verify(verbose = true) {
-    const result = this.output === this.expectedOutput;
-    console.log('Input: ' + chalk.magenta(this.input));
+  _verify(verbose = true) {
+    const result = this._output === this._expectedOutput;
+    console.log('Input: ' + chalk.magenta(this._input));
     if (verbose) {
-      console.log('  => Output: ' + choolk(result, this.output) + '\n'
-      + '  ' + choolk(result, '+', '-') + 'Expected: ' + choolk(result, this.expectedOutput));
+      console.log('  => Output: ' + choolk(result, this._output) + '\n'
+      + '  ' + choolk(result, '+', '-') + 'Expected: ' + choolk(result, this._expectedOutput));
     } else {
       console.log('  => Output ' + choolk(result, (result) ? '===' : '!==') + ' Expected');
     }

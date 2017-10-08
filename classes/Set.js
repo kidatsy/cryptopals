@@ -1,30 +1,32 @@
 class Set {
   constructor(number) {
-    this.number = number;
-    this.challenges = {};
+    this._number = number;
+    this._challenges = {};
   }
 
   getNumber() {
-    return this.number;
+    return this._number;
   }
 
-  notifyAll() {
-    console.log('Running all Challenges for Set ' + this.number + '!'
+  _notifyAll() {
+    console.log('Running all Challenges for Set ' + this._number + '!'
       + '\n=================================\n');    
   }
 
   addChallenge(challenge) {
-    this.challenges[challenge.getNumber()] = challenge;
+    this._challenges[challenge.getNumber()] = challenge;
     return this;
   }
 
   runChallenge(number) {
-    this.challenges[number].run();
+    if (this._challenges[number]) {
+      this._challenges[number].run();
+    }
   }
 
   all() {
-    this.notifyAll();
-    for (const i in this.challenges) {
+    this._notifyAll();
+    for (const i in this._challenges) {
       this.runChallenge(i);
     }
   }

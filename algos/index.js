@@ -1,3 +1,4 @@
 import convert from './convert';
+import xor from './xor';
 
-export {convert};
+export { convert, xor };
