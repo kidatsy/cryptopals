@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import chalk from 'chalk';
 
 export const nSizeChunks = (input, size) => {
@@ -7,6 +8,10 @@ export const nSizeChunks = (input, size) => {
     input = input.slice(size);
   }
   return output;
+};
+
+export const singleCharString = (char, length) => {
+  return _.fill(Array(length), char).join('');
 };
 
 export const choolk = (bool, string, negation) => {

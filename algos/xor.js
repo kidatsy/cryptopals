@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import convert from './convert';
 
-const xor = (input1, input2) => {
+export default (input1, input2) => {
   const inputs = (input1.length > input2.length) ? [input1, input2] : [input2, input1];
   let output = [];
   for (let i in inputs[0]) {
@@ -12,5 +12,3 @@ const xor = (input1, input2) => {
 
   return output.join('');
 };
-
-export default xor;

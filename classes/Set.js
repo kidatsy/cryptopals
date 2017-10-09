@@ -1,4 +1,5 @@
 import Promise from 'bluebird';
+import chalk from 'chalk';
 
 class Set {
   constructor(number) {
@@ -11,8 +12,8 @@ class Set {
   }
 
   _notifyAll() {
-    console.log('Running all Challenges for Set ' + this._number + '!'
-      + '\n=================================\n');    
+    console.log(chalk.yellow('Running all Challenges for Set ' + this._number + '!'
+      + '\n=================================\n'));
   }
 
   addChallenge(challenge) {

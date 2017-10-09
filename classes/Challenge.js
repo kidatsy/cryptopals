@@ -41,15 +41,18 @@ class Challenge {
   }
 
   _verify(verbose = true) {
-    const result = this._output === this._expectedOutput;
     console.log('Input: ' + chalk.magenta(this._input));
-    if (verbose) {
-      console.log('  => Output: ' + choolk(result, this._output) + '\n'
-      + '  ' + choolk(result, '+', '-') + 'Expected: ' + choolk(result, this._expectedOutput));
+    if (this._expectedOutput) {
+      const result = this._output === this._expectedOutput;
+      if (verbose) {
+        console.log('  => Output: ' + choolk(result, this._output) + '\n'
+        + '  ' + choolk(result, '+', '-') + 'Expected: ' + choolk(result, this._expectedOutput));
+      } else {
+        console.log('  => Output ' + choolk(result, (result) ? '===' : '!==') + ' Expected');
+      }
     } else {
-      console.log('  => Output ' + choolk(result, (result) ? '===' : '!==') + ' Expected');
+      console.log('  => Output: ' + chalk.yellow(this._output));
     }
-    // console.log((result) ? chalk.green(result) : chalk.red(result));
     console.log('');
   }
 }

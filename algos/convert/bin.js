@@ -21,8 +21,19 @@ const toBase64 = (input) => {
   }).join('');
 };
 
+const toAscii = (input) => {
+  var output = '';
+  // investigate if this is better than using nSizeChunks
+  var arr = input.match(/.{1,8}/g);
+  for (var i = 0; i < arr.length; i++) {
+    output += String.fromCharCode(parseInt(arr[i], 2).toString(10));
+  }
+  return output;
+}
+
 export default {
   toDec: toDec,
   toHex: toHex,
   toBase64: toBase64,
+  toAscii: toAscii,
 };
