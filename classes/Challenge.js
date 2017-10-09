@@ -7,6 +7,7 @@ class Challenge {
     this._number = params.number || null;
     this._description = params.description || null;
     this._input = params.input || null;
+    this._key = params.key || null;
     this._expectedOutput = params.expectedOutput || null;
     this._procedure = () => {
       return new Promise((resolve, reject) => {
@@ -23,6 +24,10 @@ class Challenge {
 
   getInput() {
     return this._input;
+  }
+
+  getKey() {
+    return this._key;
   }
 
   run() {

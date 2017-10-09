@@ -1,4 +1,4 @@
 import { Set1 } from './sets';
 
-Set1.all();
-// Set1.runChallenge(4);
+// Set1.all();
+Set1.runChallenge(5);
