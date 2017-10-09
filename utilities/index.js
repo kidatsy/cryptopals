@@ -1,3 +1,4 @@
+import fs from 'fs';
 import _ from 'lodash';
 import chalk from 'chalk';
 
@@ -16,4 +17,8 @@ export const singleCharString = (char, length) => {
 
 export const choolk = (bool, string, negation) => {
   return (bool) ? chalk.green(string) : chalk.red((negation !== undefined) ? negation : string);
+};
+
+export const getFileLines = (path) => {
+  return fs.readFileSync(path, 'utf-8').toString().split('\n');
 };

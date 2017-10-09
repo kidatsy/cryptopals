@@ -1,8 +1,11 @@
 import _ from 'lodash';
+import fs from 'fs';
+import readline from 'readline';
 import Set from '../classes/Set';
 import Challenge from '../classes/Challenge';
 import * as algos from '../algos';
 import * as exploits from '../exploits';
+import { getFileLines } from '../utilities';
 
 const Set1 = new Set(1);
 
@@ -41,10 +44,30 @@ const C3 = new Challenge({
   return result.char + ' => ' + result.plaintext;
 });
 
+// Challenge 4
+const C4 = new Challenge({
+  number: 4,
+  description: 'detect single-character xor',
+  input: getFileLines('./files/c4.txt'),
+}, () => {
+  const results = _.map(C4.getInput(), (line) => {
+    const bin = algos.convert.hex.toBin(line);
+    let result = exploits.xor.singleKeyBruteForce(bin);
+    result['ciphertext'] = line;
+    return result;
+  });
+
+  const winner = _.maxBy(results, (result) => {
+    return result.score;
+  });
+
+  return winner.ciphertext + ', ' + winner.char + ' => ' + winner.plaintext;
+});
 
 // Adding Challenges to Set
 Set1.addChallenge(C1);
 Set1.addChallenge(C2);
 Set1.addChallenge(C3);
+Set1.addChallenge(C4);
 
 export default Set1;
