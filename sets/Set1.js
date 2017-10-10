@@ -75,11 +75,23 @@ const C5 = new Challenge({
   return algos.convert.bin.toHex(algos.crypto.vigenere.encrypt(input, C5.getKey()));
 });
 
+// Challenge 5
+const C6 = new Challenge({
+  number: 6,
+  description: 'break repeating-key xor',
+  input: getFileLines('./files/c6.txt'),
+}, () => {
+  const input = _.map(C6.getInput(), (line) => {
+    return algos.convert.base64.toBin(line);
+  });
+});
+
 // Adding Challenges to Set
 Set1.addChallenge(C1);
 Set1.addChallenge(C2);
 Set1.addChallenge(C3);
 Set1.addChallenge(C4);
 Set1.addChallenge(C5);
+Set1.addChallenge(C6);
 
 export default Set1;

@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import convert from '../convert';
 import xor from '../xor';
+import hamming from '../hamming';
 import * as freq from '../freq';
 import { printableAsciiChars, nonPrintableAsciiChars } from '../../constants';
 import { getAsciiLength, repeatingStubString } from '../../utilities';
@@ -12,13 +13,13 @@ export const encrypt = (input, keyStub) => {
   return xor(input, keyBin);
 }
 
+const keyLengthLimits = [2, 40];
+
 export const decrypt = (input) => {
   let results = [];
-  for (let i in printableAsciiChars) {
+  for (let i = keyLengthLimits[0]; i <= keyLengthLimits[1]; i++) {
+    console.log(i);
     // figure this out
   }
 
-  return _.maxBy(results, (result) => {
-    return result.score;
-  });
 };
