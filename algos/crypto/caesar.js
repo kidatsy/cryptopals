@@ -22,7 +22,7 @@ export const decrypt = (input) => {
     const score = freq.score(plaintext);
 
     results.push({
-      char: char,
+      key: char,
       plaintext: plaintext,
       score: score,
     });

@@ -15,7 +15,10 @@ export const encrypt = (input, keyStub) => {
 
 export const decrypt = (input) => {
   const key = getKey(input);
-  return encrypt(input, key);
+  return {
+    key: key,
+    plaintext: convert.bin.toAscii(encrypt(input, key)),
+  };
 };
 
 const keyLengthLimits = [2, 40];
@@ -28,7 +31,7 @@ const getKey = (input) => {
   });
   return _.map(_.unzip(chunks), (col) => {
     const colString = col.join('');
-    return caesar.decrypt(colString).char;
+    return caesar.decrypt(colString).key;
   }).join('');
 };
 
@@ -36,7 +39,6 @@ const getProbableKeyLength = (input) => {
   let hammingScores = [];
   for (let keyLength = keyLengthLimits[0]; keyLength <= keyLengthLimits[1]; keyLength++) {
     const bytes = keyLength * 8;
-
     const chunks = utils.nSizeChunks(input, bytes);
     const lastChunk = chunks[chunks.length - 1];
     const countChunks = (lastChunk && lastChunk.length === bytes)

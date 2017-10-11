@@ -40,7 +40,7 @@ const C3 = new Challenge({
 }, () => {
   const bin = algos.convert.hex.toBin(C3.getInput());
   const result = algos.crypto.caesar.decrypt(bin);
-  return result.char + ' => ' + result.plaintext;
+  return result.key + ' => ' + result.plaintext;
 });
 
 // Challenge 4
@@ -60,7 +60,7 @@ const C4 = new Challenge({
     return result.score;
   });
 
-  return winner.ciphertext + ', ' + winner.char + ' => ' + winner.plaintext;
+  return winner.ciphertext + ', ' + winner.key + ' => ' + winner.plaintext;
 });
 
 // Challenge 5
@@ -81,9 +81,8 @@ const C6 = new Challenge({
   description: 'break repeating-key xor',
   input: utils.getFile('./files/c6.txt'),
 }, () => {
-  return algos.convert.bin.toAscii(
-    algos.crypto.vigenere.decrypt(algos.convert.base64.toBin(C6.getInput()))
-  );
+  const result = algos.crypto.vigenere.decrypt(algos.convert.base64.toBin(C6.getInput()))
+  return result.key + ' => ' + result.plaintext;
 });
 
 // Adding Challenges to Set
