@@ -46,7 +46,14 @@ class Challenge {
   }
 
   _verify(verbose = true) {
-    console.log('Input: ' + chalk.magenta((typeof this._input !== 'string' && this._input.length > 5) ? this._input.slice(0,5) + '... too many to list' : this._input));
+    console.log('Input: ' + chalk.magenta(
+        (typeof this._input !== 'string' && this._input.length > 5)
+          ? this._input.slice(0,5) + '... too many to list'
+          : (this._input.length > 400)
+            ? this._input.slice(0,400) + '...'
+            : this._input
+      )
+    );
     if (this._expectedOutput) {
       const result = this._output === this._expectedOutput;
       if (verbose) {

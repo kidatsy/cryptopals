@@ -4,7 +4,7 @@ import readline from 'readline';
 import Set from '../classes/Set';
 import Challenge from '../classes/Challenge';
 import * as algos from '../algos';
-import { getFileLines, repeatingStubString } from '../utilities';
+import * as utils from '../utilities';
 
 const Set1 = new Set(1);
 
@@ -47,7 +47,7 @@ const C3 = new Challenge({
 const C4 = new Challenge({
   number: 4,
   description: 'detect single-character xor',
-  input: getFileLines('./files/c4.txt'),
+  input: utils.getFileLines('./files/c4.txt'),
 }, () => {
   const results = _.map(C4.getInput(), (line) => {
     const bin = algos.convert.hex.toBin(line);
@@ -79,11 +79,11 @@ const C5 = new Challenge({
 const C6 = new Challenge({
   number: 6,
   description: 'break repeating-key xor',
-  input: getFileLines('./files/c6.txt'),
+  input: utils.getFile('./files/c6.txt'),
 }, () => {
-  const input = _.map(C6.getInput(), (line) => {
-    return algos.convert.base64.toBin(line);
-  });
+  return algos.convert.bin.toAscii(
+    algos.crypto.vigenere.decrypt(algos.convert.base64.toBin(C6.getInput()))
+  );
 });
 
 // Adding Challenges to Set

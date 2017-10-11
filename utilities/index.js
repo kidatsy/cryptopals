@@ -29,6 +29,10 @@ export const choolk = (bool, string, negation) => {
   return (bool) ? chalk.green(string) : chalk.red((negation !== undefined) ? negation : string);
 };
 
+export const getFile = (path) => {
+  return fs.readFileSync(path, 'utf-8').toString();
+}
+
 export const getFileLines = (path) => {
-  return fs.readFileSync(path, 'utf-8').toString().split('\n');
+  return getFile(path).split('\n');
 };
